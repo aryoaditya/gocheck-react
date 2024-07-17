@@ -15,11 +15,29 @@ function App() {
     setListItems((listItems) => listItems.filter((item) => item.id !== id));
   }
 
+  function handleToggleItem(id) {
+    setListItems((listItems) => {
+      return listItems.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            done: !item.done,
+          };
+        }
+        return item;
+      });
+    });
+  }
+
   return (
     <div className="app">
       <Logo />
       <Form onAddItem={handleAddItem} />
-      <Checklist listItems={listItems} onDeleteItem={handleDeleteItem}/>
+      <Checklist
+        listItems={listItems} 
+        onDeleteItem={handleDeleteItem}
+        onToggleItem={handleToggleItem}
+      />
       <Stats />
     </div>
   );

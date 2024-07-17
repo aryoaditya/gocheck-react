@@ -1,9 +1,14 @@
-function Checklist({listItems, onDeleteItem}) {
+function Checklist({listItems, onDeleteItem, onToggleItem}) {
     return (
         <div className="list">
             <ul>
                 {listItems.map((item) => (
-                    <Item item={item} onDeleteItem={onDeleteItem} key={item.id}/>
+                    <Item
+                        item={item}
+                        onDeleteItem={onDeleteItem}
+                        onToggleItem={onToggleItem}
+                        key={item.id}
+                    />
                 ))}
             </ul>
             
@@ -11,10 +16,14 @@ function Checklist({listItems, onDeleteItem}) {
     );
 }
 
-function Item({item, onDeleteItem}) {
+function Item({item, onDeleteItem, onToggleItem}) {
     return (
         <li key={item.id}>
-            <input type="checkbox" />
+            <input 
+                type="checkbox"
+                value={item.done}
+                onChange={() => onToggleItem(item.id)}
+            />
             <span style={{ textDecoration: item.done ? "line-through" : "" }}> {item.title} </span> 
             <button onClick={() => onDeleteItem(item.id)}> ❌ </button>
         </li>
