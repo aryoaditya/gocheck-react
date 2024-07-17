@@ -1,8 +1,26 @@
+import { useState } from "react";
+
 function Checklist({listItems, onDeleteItem, onToggleItem}) {
+    const [sortBy, setSortBy] = useState("input");
+
+    function sortItems() {
+        switch (sortBy) {
+        case "title":
+            return listItems.slice().sort((a, b) => a.title.localeCompare(b.title));
+        case "status":
+            return listItems.slice().sort((a, b) => Number(a.done) - Number(b.done));
+        case "input":
+        default:
+            return listItems;
+        }
+    }
+
+    const sortedItems = sortItems();
+
     return (
         <div className="list">
             <ul>
-                {listItems.map((item) => (
+                {sortedItems.map((item) => (
                     <Item
                         item={item}
                         onDeleteItem={onDeleteItem}
@@ -11,6 +29,13 @@ function Checklist({listItems, onDeleteItem, onToggleItem}) {
                     />
                 ))}
             </ul>
+            <div className="actions">
+                <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                <option value="input">Urutkan berdasarkan input</option>
+                <option value="title">Urutkan berdasarkan judul</option>
+                <option value="status">Urutkan berdasarkan status</option>
+                </select>
+            </div>
             
         </div>
     );
