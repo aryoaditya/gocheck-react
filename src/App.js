@@ -29,6 +29,13 @@ function App() {
     });
   }
 
+  function handleClearItems() {
+    const confirm = window.confirm("Are you sure you want to clear the list?");
+    if (confirm) {
+      setListItems([]);
+    }
+  }
+
   return (
     <div className="app">
       <Logo />
@@ -37,6 +44,7 @@ function App() {
         listItems={listItems} 
         onDeleteItem={handleDeleteItem}
         onToggleItem={handleToggleItem}
+        onClearItems={handleClearItems}
       />
       <Stats listItems={listItems} />
     </div>

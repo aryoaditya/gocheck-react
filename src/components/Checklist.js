@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Checklist({listItems, onDeleteItem, onToggleItem}) {
+function Checklist({listItems, onDeleteItem, onToggleItem, onClearItems}) {
     const [sortBy, setSortBy] = useState("input");
 
     function sortItems() {
@@ -31,10 +31,11 @@ function Checklist({listItems, onDeleteItem, onToggleItem}) {
             </ul>
             <div className="actions">
                 <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-                <option value="input">Urutkan berdasarkan input</option>
-                <option value="title">Urutkan berdasarkan judul</option>
-                <option value="status">Urutkan berdasarkan status</option>
+                    <option value="input">Urutkan berdasarkan input</option>
+                    <option value="title">Urutkan berdasarkan judul</option>
+                    <option value="status">Urutkan berdasarkan status</option>
                 </select>
+                <button onClick={onClearItems}>Hapus</button>
             </div>
             
         </div>
