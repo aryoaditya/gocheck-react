@@ -1,18 +1,20 @@
+import { useState } from "react"
 import Logo from "./components/Logo"
 import Form from "./components/Form"
 import Checklist from "./components/Checklist"
 import Stats from "./components/Stats"
 
-const listItems = [
-  {id: 1, title: "Eat", done: false},
-  {id: 2, title: "Sleep", done: true},
-];
-
 function App() {
+  const [listItems, setListItems] = useState([]);
+
+  function handleAddItem(item) {
+    setListItems((listItems) => [...listItems, item]);
+  }
+
   return (
     <div className="app">
       <Logo />
-      <Form />
+      <Form onAddItem={handleAddItem} />
       <Checklist listItems={listItems}/>
       <Stats />
     </div>
